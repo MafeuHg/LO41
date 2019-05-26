@@ -1,5 +1,16 @@
-main: main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
-	gcc main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
+#all:  test
+
+#main: main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
+#	gcc main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
+
+Test: test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
+	gcc test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
+
+#main.o: main.c
+#	gcc main.c -c -lpthread
+
+test.o: test.c
+	gcc test.c -c -lpthread
 
 atelier.o: atelier.c
 	gcc -c atelier.c -lpthread

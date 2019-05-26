@@ -15,6 +15,6 @@ typedef struct{
     char *name;
 }piece;
 
-piece piece_initialisation(short ref, chat *name);
+piece* piece_initialisation(short ref, char *name);
 
 #endif

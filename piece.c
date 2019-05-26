@@ -1,6 +1,7 @@
 #include "libs.h"
+#include "piece.h"
 
-piece piece_initialisation(short ref, char *name){
+piece* piece_initialisation(short ref, char *name){
     piece *p = malloc(sizeof(piece));
 
     p->reference = ref;
@@ -8,5 +9,5 @@ piece piece_initialisation(short ref, char *name){
 
     strcpy(p->name, name);
 
-    return piece;
+    return p;
 }
