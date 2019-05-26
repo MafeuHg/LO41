@@ -1,10 +1,10 @@
 #all:  test
 
-#main: main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
-#	gcc main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
+#main: main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o pieces.o stock.o tableauDeLancement.o zoneCollecte.o
+#	gcc main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o pieces.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
 
-Test: test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
-	gcc test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Test -lpthread
+Test: test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o pieces.o stock.o tableauDeLancement.o zoneCollecte.o
+	gcc test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o pieces.o stock.o tableauDeLancement.o zoneCollecte.o -o Test -lpthread
 
 #main.o: main.c
 #	gcc main.c -c -lpthread
@@ -30,10 +30,10 @@ hommeFlux.o: hommeFlux.c
 operateur.o: operateur.c
 	gcc -c operateur.c -lpthread
 
-piece.o: piece.c
-	gcc -c piece.c
+pieces.o: pieces.c
+	gcc -c pieces.c
 
-stock.o: stock.c piece.c
+stock.o: stock.c pieces.c
 	gcc -c stock.c
 
 tableauDeLancement.o: tableauDeLancement.c
