@@ -1,5 +1,5 @@
-#include "./../headers/libs.h"
-#include "./../headers/piece.h"
+#include "libs.h"
+#include "piece.h"
 
 piece* piece_initialisation(short ref, char *name){
     piece *p = malloc(sizeof(piece));

@@ -4,7 +4,7 @@
 #	gcc main.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
 
 Test: test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o
-	gcc test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Main -lpthread
+	gcc test.o atelier.o boiteLettre.o carte.o conteneur.o hommeFlux.o operateur.o piece.o stock.o tableauDeLancement.o zoneCollecte.o -o Test -lpthread
 
 #main.o: main.c
 #	gcc main.c -c -lpthread

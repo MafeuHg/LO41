@@ -1,5 +1,5 @@
-#include "./../headers/libs.h"
-#include "./../headers/piece.h"
+#include "libs.h"
+#include "piece.h"
 
 int main(int argc, char** argv)
 {
