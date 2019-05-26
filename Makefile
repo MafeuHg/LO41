@@ -17,7 +17,7 @@ hommeFlux.o: hommeFlux.c
 	gcc -c hommeFlux.c -lpthread
 
 operateur.o: operateur.c
-	gcc -c operateur.c lpthread
+	gcc -c operateur.c -lpthread
 
 piece.o: piece.c
 	gcc -c piece.c

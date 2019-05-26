@@ -1,5 +1,6 @@
+#include "libs.h"
 
-piece piece_initialisation(short ref, chat *name){
+piece piece_initialisation(short ref, char *name){
     piece *p = malloc(sizeof(piece));
 
     p->reference = ref;
