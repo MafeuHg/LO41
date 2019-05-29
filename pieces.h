@@ -49,9 +49,9 @@ typedef struct{
 }corps;
 
 fibre* fibre_initialisation(short ref, char *name);
-fil* fil_initialisation(short ref, char *name);
-tissu* tissu_initialisation(short ref, char *name);
-costume* costume_initialisation(short ref, char *name);
-corps* corps_initialisation(short ref, char *name);
+fil* fil_initialisation(short ref, char *name), int nbF;
+tissu* tissu_initialisation(short ref, char *name, int nbFi);
+costume* costume_initialisation(short ref, char *name, int nbT, int nbFi);
+corps* corps_initialisation(short ref, char *name, int nbFi, int nbT);
 
 #endif
