@@ -7,6 +7,7 @@
  */
 
 #include "utils.h"
+#include "stock.h"
 
 #ifndef operator_H
 #define operator_H
@@ -17,7 +18,7 @@
  *  -un nom de produit
  *  -un temps de production par produit
  *
- * On part du principe qu'un oprateur ne fait que recevoir des produits des postes en amont,
+ * On part du principe qu'un operateur ne fait que recevoir des produits des postes en amont,
  * qu'il ne sait que produire son type de produit, et qu'à chaque produit réalisé, il l'envoie
  * au poste suivant
  *
@@ -36,16 +37,29 @@ typedef struct Operateur{
     char *name; // the name of the operator, the length max is defined in utils.h
     char *productName; // the name of the product, the length is defined in utils.h
 
-    signed short postNumber; // the number of the post
-    signed long int productionTime; // the time an operator uses to create a product, in msec (that's why we just signed long type)
+    unsigned short postNumber; // the number of the post
+    unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
 
-    Operateur *previous;
-    Operateur *next;
+    struct Operateur *prev1;
+    struct Operateur *prev2;
+    struct Operateur *next1;
+    struct Operateur *next2;
+    stock *stock; // will only be instancied for the two first operators, will be NULL for the others
+    BOOL has_container;
 
 }operateur;
 
-*operateur intialize_operator(char *name, char *productName, signed short postNumber, signed long productionTime);
+operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime);
+
+void *fonc_operator(void *o);
+
+void produire_operateur1(operateur o);
+void produire_operateur2(operateur o);
+void produire_operateur3(operateur o);
+void produire_operateur4(operateur o);
+void produire_operateur5(operateur o);
+void produire_operateur6(operateur o);
+void produire_operateur7(operateur o);
 
 
 #endif //operator_H
-

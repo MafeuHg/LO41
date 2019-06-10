@@ -4,17 +4,14 @@
 #include <errno.h>
 #include "stock.h"
 
-*stock initalize_stock(int nbC, char type, int original){
+stock *initalize_stock(int nbC, unsigned char type, unsigned long int original){
     int i;
     stock *s = malloc(sizeof(stock));
 
+    s->type = type;
     s->nbContainers = nbC;
     s->currentNbContainer = nbC;
-    s->containers = malloc(sizeof(nbC * sizeof(container)));
-
-    for(i = 0; i != nbC; i++){
-        s->containers[i] = initialize_container(type, original);
-    }
+    s->nbProducts = original;
 
     return s;
 }
@@ -24,4 +21,22 @@ BOOL isStockEmpty(stock s){
         return TRUE;
     else
         return FALSE;
+}
+
+void *fonc_fiberStock(){
+    while(1){
+        pthread_cond_wait(&fiberStock, &mutex1);
+        printf("Envoi de nouveaux stocks de fibres\n");
+        usleep(700000);
+        pthread_cond_signal(&wait1);
+    }
+}
+
+void *fonc_plasticStock(){
+    while(1){
+        pthread_cond_wait(&plasticStock, &mutex2);
+        printf("Envoi de nouveaux stocks de plastique\n");
+        usleep(700000);
+        pthread_cond_signal(&wait2);
+    }
 }

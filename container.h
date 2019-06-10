@@ -18,15 +18,15 @@ typedef struct{
 
     char type;
 
-    int originalNbComponents; // the original number of fiber per container. Defined by the user
-    int currentNbComponent; // the number of fiber at a instant t, will decrease until 0
+    unsigned long int originalNbComponents; // the original number of fiber per container. Defined by the user
+    unsigned long int currentNbComponent; // the number of fiber at a instant t, will decrease until 0
 
     card *mCard; // the magnetic card that is associated with every container
     BOOL isCardHere; // represent the presence or not of the magnetic card
 
 }container;
 
-*container initialize_container(char type, int orignal);
+container *initialize_container(unsigned char type, unsigned long int original);
 BOOL isContainerEmpty(container c);
 
 #endif //CONTENEURS_H
