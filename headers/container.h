@@ -8,11 +8,14 @@
  *
  */
 
-#include "utils.h"
-#include "card.h"
-
 #ifndef CONTENEURS_H
 #define CONTENEURS_H
+typedef int BOOL;
+#define TRUE 0
+#define FALSE 1
+
+#include "card.h"
+
 
 typedef struct{
 

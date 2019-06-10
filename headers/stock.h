@@ -5,12 +5,11 @@
  * contains the definiton of the stocks
  *
  */
+#ifndef STOCK_H
+#define STOCK_H
 
 #include "utils.h"
 #include "container.h"
-
-#ifndef STOCK_H
-#define STOCK_H
 
 typedef struct{
 

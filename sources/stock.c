@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-#include "stock.h"
+#include "../headers/stock.h"
 
 stock *initalize_stock(int nbC, unsigned char type, unsigned long int original){
     int i;

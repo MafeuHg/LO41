@@ -1,5 +1,5 @@
-#include "operator.h"
-#include "variables.h"
+#include "../headers/operator.h"
+#include "../headers/variables.h"
 
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime){
 
@@ -54,18 +54,18 @@ void produire_operateur1(operateur o){
             printf("Le stock de fibres etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
             pthread_cond_signal(&fiberStock);
             pthread_mutex_lock(&mutex1);
-            pthread_cond_wait(&wait1, &mutex1); // attend un signal indiquant
+            pthread_cond_wait(&wait1, &mutex1);
             pthread_mutex_unlock(&mutex1);
         }
         else{
             while(c->currentNbComponent > 0){
-                if(c->currentNbComponent > 0){ // on va ajuster au nombre de matériaux requis pour un fil
-                    usleep(o.productionTime); // temps requis pour produire 100 fils à partir de 400 fibres
+                if(c->currentNbComponent > 0){
+                    usleep(o.productionTime);
                     c->currentNbComponent -= 400;
                     production_operator_1 += 200;
                     pthread_cond_signal(&wait5_1);
                     pthread_cond_signal(&wait6_1);
-                    //printf("L'operateur %s a produit 200 fils il en possède %lu\n", o.name, production_operator_1);
+                    printf("L'operateur %s a produit 200 fils\n", o.name);
                 }
             }
             printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
@@ -93,11 +93,11 @@ void produire_operateur2(operateur o){
         }
         else{
             while(c->currentNbComponent > 0){
-                if(c->currentNbComponent > 0){ // on va ajuster au nombre de matériaux requis pour un fil
-                    usleep(2000000); // temps requis pour produire 100 fils à partir de 400 fibres
+                if(c->currentNbComponent > 0){
+                    usleep(2000000);
                     c->currentNbComponent -= 400;
                     production_operator_2 += 200;
-                    //printf("L'operateur %s a produit 200 bouts de plastique il en possède %lu\n", o.name, production_operator_2);
+                    printf("L'operateur %s a produit 200 bouts de plastique\n", o.name);
                     pthread_cond_signal(&wait3);
                     pthread_cond_signal(&wait4);
                 }
@@ -114,13 +114,9 @@ void produire_operateur3(operateur o){
             production_operator_2 -= 100;
             usleep(3000000);
             production_operator_3 += 1;
-            printf("L'operateur %s a produit 1 oeil il en possede %lu\n", o.name, production_operator_3);
+            printf("L'operateur %s a produit 1 oeil\n", o.name);
             pthread_cond_signal(&wait5_2);
         }
-        /* TODO */
-        /* On va faire en sorte de protéger la ressource critique "fibres" (car utilisée par deux opérateurs)
-         * et faire pareil avec le plastique
-         */
         else if(production_operator_2 < 100){
             printf("L'operateur %s attend suffisamment de plastique pour produire des yeux\n", o.name);
             pthread_mutex_lock(&mutex3);
@@ -135,17 +131,16 @@ void produire_operateur4(operateur o){
         if(production_operator_2 >= 100){
             production_operator_2 -= 100;
             usleep(2000000);
-            //printf("L'operateur %s a produit 1 bouton\n", o.name);
-            pthread_cond_signal(&wait6_2);
+            printf("L'operateur %s a produit 1 bouton\n", o.name);
             production_operator_4 += 1;
+            pthread_cond_signal(&wait6_2);
         }
         else if(production_operator_2 < 100){
-            //printf("L'operateur %s attend suffisamment de plastique pour produire des boutons\n", o.name);
+            printf("L'operateur %s attend suffisamment de plastique pour produire des boutons\n", o.name);
             pthread_mutex_lock(&mutex4);
             pthread_cond_wait(&wait4, &mutex4);
             pthread_mutex_unlock(&mutex4);
         }
-
     }
 }
 void produire_operateur5(operateur o){
@@ -157,6 +152,7 @@ void produire_operateur5(operateur o){
 
         if(production_operator_1 >= 300){
             production_operator_1 -= 300;
+            usleep(2500000);
             printf("L'operateur %s a fini un corps de poupee, il attend les yeux\n", o.name);
 
             pthread_mutex_lock(&mutex5_2);
@@ -164,7 +160,10 @@ void produire_operateur5(operateur o){
             pthread_mutex_unlock(&mutex5_2);
             if(production_operator_3 >= 2){
                 production_operator_3 -= 2;
+                usleep(1000000);
+                production_operator_5 += 1;
                 printf("L'operateur %s a fini de faire une poupee\n", o.name);
+                pthread_cond_signal(&wait7_1);
             }
             else{
                 printf("L'operateur %s attends des YEUX\n", o.name);
@@ -173,7 +172,6 @@ void produire_operateur5(operateur o){
                 pthread_cond_wait(&wait5_2, &mutex5_2);
                 pthread_mutex_unlock(&mutex5_2);
             }
-
         }
         else{
             printf("L'operateur %s attend des fils pour faire un corps de poupee\n", o.name);
@@ -187,69 +185,84 @@ void produire_operateur5(operateur o){
 }
 void produire_operateur6(operateur o){
     while(1){
-        if(production_operator_1 >= 100){
-            //production_operator_5_1 += 1;
-            production_operator_1 -= 100;
-            usleep(2500000);
-            //printf("L'operateur %s a produit un costume de poupee sans boutons\n", o.name);
 
-            pthread_cond_signal(&wait6_2);
+        pthread_mutex_lock(&mutex6_1);
+        pthread_cond_wait(&wait6_1, &mutex6_1);
+        pthread_mutex_unlock(&mutex6_1);
+
+        if(production_operator_1 >= 200){
+            production_operator_1 -= 200;
+            usleep(3500000);
+            printf("L'operateur %s a fini un costume de poupee, il attends les boutons\n", o.name);
+
+            pthread_mutex_lock(&mutex6_2);
+            pthread_cond_wait(&wait6_2, &mutex6_2);
+            pthread_mutex_unlock(&mutex6_2);
+            if(production_operator_4 >= 3){
+                production_operator_4 -= 3;
+                usleep(1500000);
+                production_operator_6 += 1;
+                printf("L'operateur %s a fini de faire un costume de poupee\n", o.name);
+                pthread_cond_signal(&wait7_2);
+            }
+            else{
+                printf("L'operateur %s attends des BOUTONS\n", o.name);
+
+                pthread_mutex_lock(&mutex6_2);
+                pthread_cond_wait(&wait6_2, &mutex6_2);
+                pthread_mutex_unlock(&mutex6_2);
+            }
+
+        }
+        else{
+            printf("L'operateur %s attend des fils pour faire un costume de poupee\n", o.name);
+
             pthread_mutex_lock(&mutex6_1);
             pthread_cond_wait(&wait6_1, &mutex6_1);
             pthread_mutex_unlock(&mutex6_1);
-
-            if(production_operator_4 >= 2){
-                pthread_mutex_lock(&mutex6_2);
-                pthread_cond_wait(&wait6_inter, &mutex6_2);
-                pthread_mutex_unlock(&mutex6_2);
-
-                production_operator_3 -= 2;
-                production_operator_5_final += 1;
-                //printf("l'operateur %s a produit un cotsume\n", o.name);
-
-                pthread_cond_signal(&wait7_2);
-                pthread_cond_signal(&wait6_inter);
-            }
-            else{
-                //printf("L'operateur %s attends des boutons pour finir son costume\n", o.name);
-            }
-        }
-        else{
-            //voir a bloquer ici et attendre un dernier signal de l'oprateur 3
         }
     }
-
-
 }
 void produire_operateur7(operateur o){
-    while(production_operator_7_final < 5){
-        if(production_operator_5_final >= 1){
+    while(production_operator_7 < 3){
 
-            production_operator_5_final -= 1;
-            printf("L'operateur %s attends le costume qui va avec le corps de poupee\n", o.name);
+        pthread_mutex_lock(&mutex7_1);
+        pthread_cond_wait(&wait7_1, &mutex7_1);
+        pthread_mutex_unlock(&mutex7_1);
 
-            pthread_cond_signal(&wait7_2);
-            pthread_mutex_lock(&mutex7_1);
-            pthread_cond_wait(&wait7_1, &mutex7_1);
-            pthread_mutex_unlock(&mutex7_1);
+        if(production_operator_5 >= 1){
+            production_operator_5 -= 1;
+            usleep(100000);
+            printf("L'operateur %s a recupere un corps, il attend le costume\n", o.name);
 
-            if(production_operator_6_final >= 1){
+            pthread_mutex_lock(&mutex7_2);
+            pthread_cond_wait(&wait7_2, &mutex7_2);
+            pthread_mutex_unlock(&mutex7_2);
+
+            if(production_operator_6 >= 1){
+                production_operator_6 -= 1;
+                usleep(100000);
+                production_operator_7 += 1;
+                printf("L'operateur %s a fini de faire  poupee COMPLETE\n", o.name);
+                pthread_cond_signal(&wait7_2);
+            }
+            else{
+                printf("L'operateur %s attends un COSTUME\n", o.name);
+
                 pthread_mutex_lock(&mutex7_2);
                 pthread_cond_wait(&wait7_2, &mutex7_2);
                 pthread_mutex_unlock(&mutex7_2);
-
-                production_operator_6_final -= 1;
-                production_operator_7_final += 1;
-                printf("l'operateur %s a produit une poupee a l'effigie de Jacques Chirac\n", o.name);
-
-                pthread_cond_signal(&wait7_1);
             }
-            else{
-                printf("L'operateur %s attends un costume\n", o.name);
-            }
+
         }
         else{
-            //voir a bloquer ici et attendre un dernier signal de l'oprateur 3
+            printf("L'operateur %s attend une poupee\n", o.name);
+
+            pthread_mutex_lock(&mutex7_1);
+            pthread_cond_wait(&wait7_1, &mutex7_1);
+            pthread_mutex_unlock(&mutex7_1);
         }
     }
+    printf("La commande est finie, circulez !\n");
+    exit(EXIT_SUCCESS);
 }
