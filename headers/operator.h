@@ -40,6 +40,13 @@ typedef struct Operateur{
     unsigned short postNumber; // the number of the post
     unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
 
+    struct Operateur *prev1;
+    struct Operateur *prev2;
+    struct Operateur *next1;
+    struct Operateur *next2;
+
+    static unsigned long int production; // static cause we wouldn't access its value in real time
+
     stock *stock; // will only be instancied for the two first operators, will be NULL for the others
     BOOL has_container;
 

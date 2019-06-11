@@ -1,7 +1,6 @@
 #ifndef CLASS_H
 #define CLASS_H
 
-
 unsigned long int production_operator_1 = 0;
 unsigned long int production_operator_2 = 0;
 unsigned long int production_operator_3 = 0;
