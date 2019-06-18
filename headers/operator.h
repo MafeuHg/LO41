@@ -45,9 +45,9 @@ typedef struct Operateur{
     struct Operateur *next1;
     struct Operateur *next2;
 
-    static unsigned long int production; // static cause we wouldn't access its value in real time
+    unsigned long int *production;
 
-    stock *stock; // will only be instancied for the two first operators, will be NULL for the others
+    stock *stockO; // will only be instancied for the two first operators, will be NULL for the others
     BOOL has_container;
 
 }operateur;

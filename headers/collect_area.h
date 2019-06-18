@@ -5,7 +5,7 @@
 
 typedef struct{
 
-    signed int nbContainer;
+    unsigned int nbContainer;
 
 }collect_area;
 

@@ -29,7 +29,7 @@ typedef struct{
 
 }container;
 
-container *initialize_container(unsigned char type, unsigned long int original);
+container *initialize_container(unsigned char type, unsigned long int original, signed short p, signed short wn, int nbC, int ref, int des, int o);
 BOOL isContainerEmpty(container c);
 
 #endif //CONTENEURS_H

@@ -13,6 +13,7 @@
 #define MAX_LENGTH_PRODUCT_NAME 20
 
 /* Concerns the main program */
+
 #define NB_OPERATORS 7 // the number of operators
 #define NB_MUTEX 8
 
@@ -44,7 +45,6 @@ pthread_mutex_t mutex7_2;
 
 
 pthread_t operators[NB_OPERATORS];
-
 
 #endif //UTILS_H
 

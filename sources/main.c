@@ -7,15 +7,25 @@
 #include "../headers/card.h"
 #include "../headers/operator.h"
 #include "../headers/stock.h"
+#include "../headers/boite_aux_lettres.h"
+#include "../headers/atelier.h"
+#include "../headers/collect_area.h"
 
+boite_aux_lettres *box;
 
 int main(int argc, char** argv)
 {
+    /* TODO
+     *
+     * 1) ON AURA un nombre donné de containers, qui servira à créer le tableau de cartes de la boite aux lettres
+     * 2)
+     */
     int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 40000;
 
     /* Stock initialisation */
     stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer);
     stock *plastic = initalize_stock(nbContainers, 'p', nbProductByContainer);
+    box = initialize_boite_aux_lettres();
 
     /* Operators initialisation */
     char operators_name[NB_OPERATORS][MAX_LENGTH_NAME];
@@ -33,8 +43,25 @@ int main(int argc, char** argv)
         operateurs[i] = *o;
     }
 
-    operateurs[0].stock = fiber;
-    operateurs[1].stock = plastic;
+    operateurs[0].next1 = &operateurs[4];
+    operateurs[0].next2 = &operateurs[5];
+    operateurs[1].next1 = &operateurs[2];
+    operateurs[1].next2 = &operateurs[3];
+    operateurs[2].prev1 = &operateurs[1];
+    operateurs[2].next1 = &operateurs[4];
+    operateurs[3].prev1 = &operateurs[1];
+    operateurs[3].next1 = &operateurs[5];
+    operateurs[4].prev1 = &operateurs[0];
+    operateurs[4].prev2 = &operateurs[2];
+    operateurs[4].next1 = &operateurs[6];
+    operateurs[5].prev1 = &operateurs[0];
+    operateurs[5].prev2 = &operateurs[3];
+    operateurs[5].next1 = &operateurs[6];
+    operateurs[6].prev1 = &operateurs[4];
+    operateurs[6].prev2 = &operateurs[5];
+
+    operateurs[0].stockO = fiber;
+    operateurs[1].stockO = plastic;
 
     /* Paramétrage de la synchronisation */
 
