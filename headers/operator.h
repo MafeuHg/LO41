@@ -45,7 +45,7 @@ typedef struct Operateur{
     struct Operateur *next1;
     struct Operateur *next2;
 
-    unsigned long int *production;
+    unsigned long int production;
 
     stock *stockO; // will only be instancied for the two first operators, will be NULL for the others
     BOOL has_container;
@@ -53,6 +53,9 @@ typedef struct Operateur{
 }operateur;
 
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime);
+
+unsigned long int get_production(operateur *o);
+unsigned long int take_production(operateur o);
 
 void *fonc_operator(void *o);
 

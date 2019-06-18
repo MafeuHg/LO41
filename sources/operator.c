@@ -2,6 +2,10 @@
 #include "../headers/variables.h"
 #include "../headers/boite_aux_lettres.h"
 
+unsigned long int get_production(operateur *o){
+    return o->production;
+}
+
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime){
 
     operateur *o = malloc(sizeof(operateur));
@@ -47,9 +51,10 @@ void produire_operateur1(operateur o){
         if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
             usleep(50000);
             printf("L'operateur %s prend un container du stock de fibres\n", o.name);
+            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
+            add_card(boite, c->mCard);
             o.stockO->currentNbContainer--;
             o.has_container = TRUE;
-            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
             printf("Le stock de fibres etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
@@ -81,9 +86,10 @@ void produire_operateur2(operateur o){
         if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
             usleep(500000);
             printf("L'operateur %s prend un container du stock de plastique\n", o.name);
+            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
+            add_card(boite, c->mCard);
             o.stockO->currentNbContainer--;
             o.has_container = TRUE;
-            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
             printf("Le stock de plastique etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
@@ -111,7 +117,7 @@ void produire_operateur2(operateur o){
 }
 void produire_operateur3(operateur o){
     while(1){
-        printf("L'operateur %s a produit %lu fils\n", o.prev1->name, (unsigned long int)o.prev1->production);
+        printf("L'operateur %s a produit %lu fils\n", o.prev1->name, get_production(o.prev1));
         if(production_operator_2 >= 100){
             production_operator_2 -= 100;
             usleep(3000000);

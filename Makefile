@@ -1,6 +1,7 @@
 #all:  test
 
-main: main.o container.o operator.o stock.o boite_aux_lettres.o card.o homme_flux.o atelier.o
+#main: main.o container.o operator.o stock.o boite_aux_lettres.o card.o homme_flux.o atelier.o
+main: main.o container.o operator.o stock.o boite_aux_lettres.o card.o
 	gcc ./objects/*.o -o Main -pthread
 
 main.o: ./sources/main.c
@@ -21,11 +22,11 @@ boite_aux_lettres.o: ./sources/boite_aux_lettres.c
 card.o: ./sources/card.c
 	gcc -c ./sources/card.c -o ./objects/card.o
 
-homme_flux.o: ./sources/homme_flux.o
-	gcc -c ./sources/homme_flux.c -o ./objects/homme_flux.o
+#homme_flux.o: ./sources/homme_flux.o
+#	gcc -c ./sources/homme_flux.c -o ./objects/homme_flux.o
 
-atelier.o: ./sources/atelier.o
-	gcc -c ./sources/atelier.c -o ./objects/atelier.o
+#atelier.o: ./sources/atelier.o
+#	gcc -c ./sources/atelier.c -o ./objects/atelier.o
 
 clean:
 	rm ./objects/*.o

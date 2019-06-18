@@ -13,5 +13,7 @@ typedef struct{
 boite_aux_lettres *initialize_boite_aux_lettres();
 void add_card(boite_aux_lettres *b, card *c);
 
+boite_aux_lettres *boite;
+
 #endif //CLASS_H
 

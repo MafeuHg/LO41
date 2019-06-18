@@ -2,6 +2,7 @@
 #define HOMME_FLUX_H
 
 #include "card.h"
+#include "boite_aux_lettres.h"
 
 typedef struct{
 

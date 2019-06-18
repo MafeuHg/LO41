@@ -9,9 +9,7 @@
 #include "../headers/stock.h"
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/atelier.h"
-#include "../headers/collect_area.h"
 
-boite_aux_lettres *box;
 
 int main(int argc, char** argv)
 {
@@ -21,11 +19,12 @@ int main(int argc, char** argv)
      * 2)
      */
     int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 40000;
+    boite = initialize_boite_aux_lettres();
+    boite->size++;
 
     /* Stock initialisation */
     stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer);
     stock *plastic = initalize_stock(nbContainers, 'p', nbProductByContainer);
-    box = initialize_boite_aux_lettres();
 
     /* Operators initialisation */
     char operators_name[NB_OPERATORS][MAX_LENGTH_NAME];
