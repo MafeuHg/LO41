@@ -52,15 +52,14 @@ void produire_operateur1(operateur o){
             usleep(50000);
             printf("L'operateur %s prend un container du stock de fibres\n", o.name);
             c = initialize_container(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
-            add_card(boite, c->mCard);
+            add_card(c->mCard);
             o.stockO->currentNbContainer--;
             o.has_container = TRUE;
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
             printf("Le stock de fibres etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
-            pthread_cond_signal(&fiberStock);
             pthread_mutex_lock(&mutex1);
-            pthread_cond_wait(&wait1, &mutex1);
+            pthread_cond_wait(&fiberStock, &mutex1);
             pthread_mutex_unlock(&mutex1);
         }
         else{
@@ -87,15 +86,14 @@ void produire_operateur2(operateur o){
             usleep(500000);
             printf("L'operateur %s prend un container du stock de plastique\n", o.name);
             c = initialize_container(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
-            add_card(boite, c->mCard);
+            add_card(c->mCard);
             o.stockO->currentNbContainer--;
             o.has_container = TRUE;
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
             printf("Le stock de plastique etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
-            pthread_cond_signal(&plasticStock);
             pthread_mutex_lock(&mutex2);
-            pthread_cond_wait(&wait2, &mutex2);
+            pthread_cond_wait(&plasticStock, &mutex2);
             pthread_mutex_unlock(&mutex2);
         }
         else{
@@ -117,7 +115,6 @@ void produire_operateur2(operateur o){
 }
 void produire_operateur3(operateur o){
     while(1){
-        printf("L'operateur %s a produit %lu fils\n", o.prev1->name, get_production(o.prev1));
         if(production_operator_2 >= 100){
             production_operator_2 -= 100;
             usleep(3000000);

@@ -32,6 +32,9 @@ pthread_cond_t waitPlastic;
 pthread_cond_t fiberStock;
 pthread_cond_t plasticStock;
 
+pthread_cond_t wait_atelier;
+pthread_mutex_t mutex_atelier;
+
 pthread_mutex_t mutex1;
 pthread_mutex_t mutex2;
 pthread_mutex_t mutex3;
@@ -45,6 +48,7 @@ pthread_mutex_t mutex7_2;
 
 
 pthread_t operators[NB_OPERATORS];
+pthread_t flux;
 
 #endif //UTILS_H
 

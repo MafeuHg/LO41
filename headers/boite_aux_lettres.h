@@ -11,7 +11,7 @@ typedef struct{
 }boite_aux_lettres;
 
 boite_aux_lettres *initialize_boite_aux_lettres();
-void add_card(boite_aux_lettres *b, card *c);
+void add_card(card *c);
 
 boite_aux_lettres *boite;
 

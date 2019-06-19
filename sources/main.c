@@ -9,6 +9,7 @@
 #include "../headers/stock.h"
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/atelier.h"
+#include "../headers/homme_flux.h"
 
 
 int main(int argc, char** argv)
@@ -20,7 +21,6 @@ int main(int argc, char** argv)
      */
     int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 40000;
     boite = initialize_boite_aux_lettres();
-    boite->size++;
 
     /* Stock initialisation */
     stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer);
@@ -36,13 +36,14 @@ int main(int argc, char** argv)
     strcpy(operators_name[5], "Edouard"); // crée le costume de la poupée
     strcpy(operators_name[6], "EXPLOSION"); // assemble toutes les pièces pour créer le produit final
 
+    homme_flux *f;
     operateur *operateurs = malloc(NB_OPERATORS * sizeof(operateur));
     for(i = 0; i != NB_OPERATORS; i++){
         operateur *o = initialize_operator(operators_name[i], i + 1, 2000000);
         operateurs[i] = *o;
     }
 
-    operateurs[0].next1 = &operateurs[4];
+    /*operateurs[0].next1 = &operateurs[4];
     operateurs[0].next2 = &operateurs[5];
     operateurs[1].next1 = &operateurs[2];
     operateurs[1].next2 = &operateurs[3];
@@ -57,7 +58,7 @@ int main(int argc, char** argv)
     operateurs[5].prev2 = &operateurs[3];
     operateurs[5].next1 = &operateurs[6];
     operateurs[6].prev1 = &operateurs[4];
-    operateurs[6].prev2 = &operateurs[5];
+    operateurs[6].prev2 = &operateurs[5];*/
 
     operateurs[0].stockO = fiber;
     operateurs[1].stockO = plastic;
@@ -67,10 +68,12 @@ int main(int argc, char** argv)
     // creation des threads opérateurs
     for(i = 0; i != NB_OPERATORS; i++)
         pthread_create(operators+i, NULL, fonc_operator, (void *)(&operateurs[i]));
+    pthread_create(&flux, NULL, fonc_homme_flux, (void *)(f));
 
     // attends que la commande soit complétée
     for(i = 0; i != NB_OPERATORS; i++)
         pthread_join(operators[i], NULL);
+    pthread_join(flux, NULL);
 
 
     /* end of the program */
