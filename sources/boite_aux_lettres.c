@@ -13,12 +13,14 @@ void add_card(card *c){
 
     if(boite->size == 0){
         boite->box = malloc(1 * sizeof(boite_aux_lettres)); // to begin with an array, is handle in add_card;
-        boite->size = 1;
         boite->box[0] = *c;
+        boite->size = 1;
     }
     else{
         boite->box = (card *)realloc(boite->box, ((boite->size + 1) * sizeof(card)));
         boite->box[boite->size] = *c;
+        boite->size++;
     }
-    boite->size++;
+    printf("Une carte a ete ajoutee\n");
+    pthread_cond_signal(&wait_boite);
 }

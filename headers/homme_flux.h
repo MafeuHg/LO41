@@ -9,7 +9,7 @@
 
 typedef struct{
     card *cards;
-    int nbCards;;
+    int nbCards;
 }homme_flux;
 
 void *fonc_homme_flux(void *f);

@@ -12,11 +12,22 @@ homme_flux *homme_flux_intialize(void){
 void *fonc_homme_flux(void *hf){
     homme_flux *f = hf;
     while(1){
-        usleep(7200000); // time elapsed before checking the letters box
-        printf("TEST");
+        int i;
+        usleep(1200000); // time elapsed before checking the letters box
+
+        pthread_mutex_lock(&homme_flux_mutex);
+        pthread_cond_wait(&wait_boite, &homme_flux_mutex);
+        pthread_mutex_unlock(&homme_flux_mutex);
+
+        printf("test\n");
+
         if(boite->size > 0){
-            f->cards = malloc(boite->size * sizeof(card));
+
+            f->cards = malloc((int)boite->size * sizeof(card));
             f->nbCards = boite->size;
+
+            for(i = 0; i != f->nbCards; i++)
+                f->cards[i] = boite->box[i];
 
             free(boite->box);
             boite->size = 0;

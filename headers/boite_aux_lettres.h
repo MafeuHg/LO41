@@ -2,6 +2,10 @@
 #define CLASS_H
 
 #include "card.h"
+#include <pthread.h>
+
+pthread_t boite_mutex;
+pthread_cond_t wait_boite;
 
 typedef struct{
 

@@ -18,22 +18,19 @@ atelier *initialize_atelier(homme_flux *hf){
 
 void *commande(void *d){
     card *c = d;
-    usleep(20000000); // the time during the livraison of a container
+    usleep(2000000); // the time during the livraison of a container
 
-    pthread_mutex_lock(&collect_area_mutex);
-    pthread_cond_wait(&collect_area_wait, &collect_area_mutex);
-
-    collect_zone->nbContainer--;
     if(c->reference == 3263825){
-        printf("La livraison de fibres est arrivee\n");
-        pthread_cond_signal(&fiberOrder);
+        printf("La livraison de fibres est en cours\n");
+        pthread_cond_signal(&waitFiber);
     }
     else if(c->reference == 3263827){
-        printf("La livraison de plastique est arrivee\n");
-        pthread_cond_signal(&plasticOrder);
+        printf("La livraison de plastique est en cours\n");
+        pthread_cond_signal(&waitPlastic);
     }
 
-    pthread_mutex_unlock(&collect_area_mutex);
+
+    pthread_exit(NULL);
 }
 
 void *fonc_atelier(void *d){
@@ -61,7 +58,11 @@ void *fonc_atelier(void *d){
         }
 
         for(i = 0; i != hf->nbCards; i++){
-            pthread_create(&order, &attr, commande, (void *)&cards[i]);
+            if(pthread_create(&order, &attr, commande, (void *)&cards[i]) != 0)
+                printf("Dommage\n");
         }
+        free(cards);
+        free(hf->cards);
+        hf->nbCards = 0;
     }
 }

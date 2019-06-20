@@ -12,3 +12,8 @@ card *create_card(signed short postNumber, signed short workshopNumber, int nbCo
 
     return c;
 }
+
+void card_info(card *c){
+    printf("Infos sur la carte:\n");
+    printf("Nombre de comosants; %d\nReference: %d\nDesignation: %d\n", c->nbComponent, c->reference, c->designation);
+}

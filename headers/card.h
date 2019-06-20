@@ -10,6 +10,7 @@
 #define CARD_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef struct{
 
@@ -25,6 +26,7 @@ typedef struct{
 
 }card;
 
+void card_info(card *c);
 card *create_card(signed short postNumber, signed short workshopNumber, int nbComponent, int refference, int designation, int order);
 
 #endif //CARD_H

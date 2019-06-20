@@ -15,7 +15,7 @@
 
 int main(int argc, char** argv)
 {
-    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 1000;
+    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 10000;
     boite = initialize_boite_aux_lettres();
     homme_flux *hf = homme_flux_intialize();
     atelier *at = initialize_atelier(hf);
@@ -65,14 +65,14 @@ int main(int argc, char** argv)
     pthread_create(&plastic_stock, NULL, fonc_plasticStock, (void *)(plastic));
 
     // attends que la commande soit complétée
-    for(i = 0; i != NB_OPERATORS; i++)
-        pthread_join(operators[i], NULL);
-
-    pthread_join(homme_flux_thread, NULL);
     pthread_join(collect_area_thread, NULL);
+    pthread_join(homme_flux_thread, NULL);
     pthread_join(atelier_thread, NULL);
     pthread_join(fiber_stock,NULL);
     pthread_join(plastic_stock, NULL);
+    for(i = 0; i != NB_OPERATORS; i++)
+        pthread_join(operators[i], NULL);
+
 
 
     /* end of the program */

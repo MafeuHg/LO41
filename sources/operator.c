@@ -50,12 +50,11 @@ void produire_operateur1(operateur o){
     container *c = NULL;
     while(1){
         if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
-            usleep(50000);
+            usleep(3000000);
             printf("L'operateur %s prend un container du stock de fibres\n", o.name);
+            o.stockO->currentNbContainer--;
             c = initialize_container(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
             add_card(c->mCard);
-            o.stockO->currentNbContainer--;
-            collect_zone->nbContainer++;
             o.has_container = TRUE;
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer <= 0){
@@ -71,9 +70,11 @@ void produire_operateur1(operateur o){
                 production_operator_1 += 200;
                 pthread_cond_signal(&wait5_1);
                 pthread_cond_signal(&wait6_1);
-                printf("L'operateur %s a produit 200 fils, il reste %li dans le container\n", o.name, c->currentNbComponent);
+                //printf("L'operateur %s a produit 200 fils, il reste %li dans le container\n", o.name, c->currentNbComponent);
             }
             printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
+            collect_zone->nbContainer++;
+            pthread_cond_signal(&waiting_for_cont);
             o.has_container = FALSE;
         }
     }
@@ -84,15 +85,14 @@ void produire_operateur2(operateur o){
     while(1){
         if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
             usleep(500000);
-            //printf("L'operateur %s prend un container du stock de plastique\n", o.name);
+            printf("L'operateur %s prend un container du stock de plastique\n", o.name);
             c = initialize_container(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
             add_card(c->mCard);
             o.stockO->currentNbContainer--;
-            collect_zone->nbContainer++;
             o.has_container = TRUE;
         }
         else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
-            //printf("Le stock de plastique etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
+            printf("Le stock de plastique etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
             pthread_mutex_lock(&mutex2);
             pthread_cond_wait(&wait2, &mutex2);
             pthread_mutex_unlock(&mutex2);
@@ -108,7 +108,9 @@ void produire_operateur2(operateur o){
                     pthread_cond_signal(&wait4);
                 }
             }
-            //printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
+            printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
+            collect_zone->nbContainer++;
+            pthread_cond_signal(&waiting_for_cont);
             o.has_container = FALSE;
         }
     }
@@ -249,7 +251,7 @@ void produire_operateur7(operateur o){
                 production_operator_6 -= 1;
                 usleep(100000);
                 production_operator_7 += 1;
-                //printf("L'operateur %s a fini de faire  poupee COMPLETE\n", o.name);
+                printf("L'operateur %s a fini de faire  poupee COMPLETE\n", o.name);
                 pthread_cond_signal(&wait7_2);
             }
             else{

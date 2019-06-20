@@ -3,6 +3,7 @@
 #include <string.h>
 #include <errno.h>
 #include "../headers/stock.h"
+#include "../headers/collect_area.h"
 
 stock *initalize_stock(int nbC, unsigned char type, long int original){
     int i;
@@ -31,8 +32,15 @@ void *fonc_fiberStock(void *s){
         pthread_cond_wait(&waitFiber, &fiberStock);
         pthread_mutex_unlock(&fiberStock);
 
-        printf("Un nouveau container de fibres est arrive\n");
+        printf("La livraison de fibres est arrive\n");
+
+        pthread_mutex_lock(&fiberStock);
+        pthread_cond_wait(&waiting_for_cont, &fiberStock);
+        pthread_mutex_unlock(&fiberStock);
+
+        collect_zone->nbContainer--;
         st->currentNbContainer++;
+        printf("Un container de fibres a ete remplis et remis dans le stock\n");
 
         pthread_cond_signal(&wait1);
     }
@@ -46,8 +54,15 @@ void *fonc_plasticStock(void *s){
         pthread_cond_wait(&waitPlastic, &plasticStock);
         pthread_mutex_unlock(&plasticStock);
 
-        printf("Un nouveau container de plastique est arrive\n");
+        printf("La livraison de plastique est arrive\n");
+
+        pthread_mutex_lock(&fiberStock);
+        pthread_cond_wait(&waiting_for_cont, &fiberStock);
+        pthread_mutex_unlock(&fiberStock);
+
+        collect_zone->nbContainer--;
         st->currentNbContainer++;
+        printf("Un container de plastique a ete remplis et remis dans le stock\n");
 
         pthread_cond_signal(&wait2);
     }

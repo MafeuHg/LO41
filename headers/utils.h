@@ -51,6 +51,7 @@ pthread_mutex_t plasticStock;
 
 pthread_t operators[NB_OPERATORS];
 pthread_t homme_flux_thread;
+pthread_mutex_t homme_flux_mutex;
 pthread_t fiber_stock;
 pthread_t plastic_stock;
 
