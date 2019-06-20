@@ -16,7 +16,7 @@ void *fonc_homme_flux(void *hf){
     while(1){
         int i;
         f->is_active = FALSE;
-        usleep(1200000); // time elapsed before checking the letters box
+        usleep(1200000);
 
         pthread_mutex_lock(&homme_flux_mutex);
         pthread_cond_wait(&wait_boite, &homme_flux_mutex);
@@ -36,7 +36,6 @@ void *fonc_homme_flux(void *hf){
             free(boite->box);
             boite->size = 0;
 
-            /* traitements avec l'atelier */
             printf("L'homme flux a pris les cartes de la boite aux lettres\n");
             pthread_cond_signal(&wait_atelier);
         }
