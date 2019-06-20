@@ -23,4 +23,5 @@ void add_card(card *c){
     }
     printf("Une carte a ete ajoutee\n");
     pthread_cond_signal(&wait_boite);
+    printf("emission du signal\n");
 }

@@ -3,6 +3,7 @@
 
 #include "card.h"
 #include "boite_aux_lettres.h"
+#include "container.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -10,6 +11,7 @@
 typedef struct{
     card *cards;
     int nbCards;
+    BOOL is_active;
 }homme_flux;
 
 void *fonc_homme_flux(void *f);

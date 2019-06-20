@@ -22,10 +22,12 @@ void *commande(void *d){
 
     if(c->reference == 3263825){
         printf("La livraison de fibres est en cours\n");
+        printf("emission du signal fibres\n");
         pthread_cond_signal(&waitFiber);
     }
     else if(c->reference == 3263827){
         printf("La livraison de plastique est en cours\n");
+        printf("emission du signal plastique\n");
         pthread_cond_signal(&waitPlastic);
     }
 

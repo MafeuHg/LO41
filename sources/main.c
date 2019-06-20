@@ -44,6 +44,8 @@ int main(int argc, char** argv)
 
     operateurs[0].stockO = fiber;
     operateurs[1].stockO = plastic;
+    operateurs[6].stockO = fiber;
+    operateurs[6].stock1 = plastic;
 
     /* Paramétrage de la synchronisation */
 

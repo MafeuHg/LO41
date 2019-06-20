@@ -30,6 +30,7 @@ void *fonc_fiberStock(void *s){
     while(1){
         pthread_mutex_lock(&fiberStock);
         pthread_cond_wait(&waitFiber, &fiberStock);
+        printf("reception du signal fibres\n");
         pthread_mutex_unlock(&fiberStock);
 
         printf("La livraison de fibres est arrive\n");
@@ -52,6 +53,7 @@ void *fonc_plasticStock(void *s){
     while(1){
         pthread_mutex_lock(&plasticStock);
         pthread_cond_wait(&waitPlastic, &plasticStock);
+        printf("reception du signal plastique\n");
         pthread_mutex_unlock(&plasticStock);
 
         printf("La livraison de plastique est arrive\n");

@@ -3,10 +3,6 @@
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/collect_area.h"
 
-unsigned long int get_production(operateur *o){
-    return o->production;
-}
-
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime){
 
     operateur *o = malloc(sizeof(operateur));
@@ -272,5 +268,9 @@ void produire_operateur7(operateur o){
         }
     }
     printf("La commande est finie, circulez !\n");
+    free(collect_zone);
+    free(boite);
+    free(o.stockO);
+    free(o.stock1);
     exit(EXIT_SUCCESS);
 }

@@ -32,6 +32,7 @@
  * aurait posé des soucis d'implémentation.
  *
  */
+
 typedef struct Operateur{
 
     char *name; // the name of the operator, the length max is defined in utils.h
@@ -40,22 +41,13 @@ typedef struct Operateur{
     unsigned short postNumber; // the number of the post
     unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
 
-    struct Operateur *prev1;
-    struct Operateur *prev2;
-    struct Operateur *next1;
-    struct Operateur *next2;
-
-    unsigned long int production;
-
     stock *stockO; // will only be instancied for the two first operators, will be NULL for the others
+    stock *stock1;
     BOOL has_container;
 
 }operateur;
 
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime);
-
-unsigned long int get_production(operateur *o);
-unsigned long int take_production(operateur o);
 
 void *fonc_operator(void *o);
 
@@ -66,6 +58,5 @@ void produire_operateur4(operateur o);
 void produire_operateur5(operateur o);
 void produire_operateur6(operateur o);
 void produire_operateur7(operateur o);
-
 
 #endif //operator_H
