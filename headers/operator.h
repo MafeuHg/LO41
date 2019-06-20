@@ -2,18 +2,16 @@
  * operator.h
  * written by GUICHARD Mériadeg
  *
- * contains the difinition of the operators
- *
+ * contains:
+ *      the difinition of the operators
+ *      the dedicated functions
  */
 
 #ifndef operator_H
 #define operator_H
 
 #include "stock.h"
-typedef int BOOL;
-#define TRUE 0
-#define FALSE 1
-
+#include "BOOL.h"
 
 /* opérateur, se définit par:
  *  -un prénom
@@ -29,7 +27,7 @@ typedef int BOOL;
  * gérés dans le programmes principal via une fonction dédiée, et sont modulables à l'éxécution de ce dernier.
  *
  * Dans un premier temps l'initalisation des opérateurs se fera via la création de leurs attributs principaux
- * Dans un second temps, on affectera "manuellement" à chaque opérateur les opérateurs *previous et *next.
+ * Dans un second temps, on utilisera les ressources opérateurs définies en global pour simuler les production
  * L'emploi d'une liste chainée aurait été d'une part un peu trop lourd, et d'autre part, peu cohérente avec notre
  * vision du projet, en effet, les dépendences inter-postes ne sont pas linéaires, et l'emploi d'une liste chainée
  * aurait posé des soucis d'implémentation.
@@ -45,15 +43,30 @@ typedef struct Operateur{
     unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
 
     stock *stockO; // will only be instancied for the two first operators, will be NULL for the others
-    stock *stock1;
+    stock *stock1; // an optional stock, placed here at the beginning of the project for possible future ameliorations
     BOOL has_container;
 
 }operateur;
 
+/*
+ * function: initialize_operator
+ * description: initialize and retur an operator
+ *
+ */
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime);
 
+/*
+ * function: fonc_operator
+ * description: associate each operator at its dedicated function
+ *
+ */
 void *fonc_operator(void *o);
 
+/*
+ * functions: produire_operateur[1-7]
+ * description: the functions at the core of the project, simulate the production of each operator
+ *
+ */
 void produire_operateur1(operateur o);
 void produire_operateur2(operateur o);
 void produire_operateur3(operateur o);
