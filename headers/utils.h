@@ -29,9 +29,10 @@ pthread_cond_t wait7_1;
 pthread_cond_t wait7_2;
 pthread_cond_t waitFiber;
 pthread_cond_t waitPlastic;
-pthread_cond_t fiberStock;
-pthread_cond_t plasticStock;
+pthread_cond_t fiberOrder;
+pthread_cond_t plasticOrder;
 
+pthread_t atelier_thread;
 pthread_cond_t wait_atelier;
 pthread_mutex_t mutex_atelier;
 
@@ -45,10 +46,13 @@ pthread_mutex_t mutex6_1;
 pthread_mutex_t mutex6_2;
 pthread_mutex_t mutex7_1;
 pthread_mutex_t mutex7_2;
-
+pthread_mutex_t fiberStock;
+pthread_mutex_t plasticStock;
 
 pthread_t operators[NB_OPERATORS];
-pthread_t flux;
+pthread_t homme_flux_thread;
+pthread_t fiber_stock;
+pthread_t plastic_stock;
 
 #endif //UTILS_H
 

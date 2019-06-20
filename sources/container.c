@@ -1,7 +1,7 @@
 #include "../headers/container.h"
 #include "../headers/utils.h"
 
-container *initialize_container(unsigned char type, unsigned long int original, signed short p, signed short wn, int nbC, int ref, int des, int o){
+container *initialize_container(unsigned char type, long int original, signed short p, signed short wn, int nbC, int ref, int des, int o){
     container *c = malloc(sizeof(container));
 
     c->type = type;

@@ -10,17 +10,16 @@
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/atelier.h"
 #include "../headers/homme_flux.h"
+#include "../headers/collect_area.h"
 
 
 int main(int argc, char** argv)
 {
-    /* TODO
-     *
-     * 1) ON AURA un nombre donné de containers, qui servira à créer le tableau de cartes de la boite aux lettres
-     * 2)
-     */
-    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 40000;
+    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 1000;
     boite = initialize_boite_aux_lettres();
+    homme_flux *hf = homme_flux_intialize();
+    atelier *at = initialize_atelier(hf);
+    collect_zone = initialize_collect_area();
 
     /* Stock initialisation */
     stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer);
@@ -43,23 +42,6 @@ int main(int argc, char** argv)
         operateurs[i] = *o;
     }
 
-    /*operateurs[0].next1 = &operateurs[4];
-    operateurs[0].next2 = &operateurs[5];
-    operateurs[1].next1 = &operateurs[2];
-    operateurs[1].next2 = &operateurs[3];
-    operateurs[2].prev1 = &operateurs[1];
-    operateurs[2].next1 = &operateurs[4];
-    operateurs[3].prev1 = &operateurs[1];
-    operateurs[3].next1 = &operateurs[5];
-    operateurs[4].prev1 = &operateurs[0];
-    operateurs[4].prev2 = &operateurs[2];
-    operateurs[4].next1 = &operateurs[6];
-    operateurs[5].prev1 = &operateurs[0];
-    operateurs[5].prev2 = &operateurs[3];
-    operateurs[5].next1 = &operateurs[6];
-    operateurs[6].prev1 = &operateurs[4];
-    operateurs[6].prev2 = &operateurs[5];*/
-
     operateurs[0].stockO = fiber;
     operateurs[1].stockO = plastic;
 
@@ -68,12 +50,29 @@ int main(int argc, char** argv)
     // creation des threads opérateurs
     for(i = 0; i != NB_OPERATORS; i++)
         pthread_create(operators+i, NULL, fonc_operator, (void *)(&operateurs[i]));
-    pthread_create(&flux, NULL, fonc_homme_flux, (void *)(f));
+
+    // Creation du thread homme flux
+    pthread_create(&homme_flux_thread, NULL, fonc_homme_flux, (void *)(f));
+
+    // Creation du thread zone de collecte
+    pthread_create(&collect_area_thread, NULL, fonc_collect_area, (void *)(collect_zone));
+
+    // Creation du thread atelier
+    pthread_create(&atelier_thread, NULL, fonc_atelier, (void *)(f));
+
+    // Creation des threads des stocks
+    pthread_create(&fiber_stock, NULL, fonc_fiberStock, (void *)(fiber));
+    pthread_create(&plastic_stock, NULL, fonc_plasticStock, (void *)(plastic));
 
     // attends que la commande soit complétée
     for(i = 0; i != NB_OPERATORS; i++)
         pthread_join(operators[i], NULL);
-    pthread_join(flux, NULL);
+
+    pthread_join(homme_flux_thread, NULL);
+    pthread_join(collect_area_thread, NULL);
+    pthread_join(atelier_thread, NULL);
+    pthread_join(fiber_stock,NULL);
+    pthread_join(plastic_stock, NULL);
 
 
     /* end of the program */

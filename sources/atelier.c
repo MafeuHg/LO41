@@ -26,11 +26,11 @@ void *commande(void *d){
     collect_zone->nbContainer--;
     if(c->reference == 3263825){
         printf("La livraison de fibres est arrivee\n");
-        pthread_cond_signal(&fiberStock);
+        pthread_cond_signal(&fiberOrder);
     }
     else if(c->reference == 3263827){
         printf("La livraison de plastique est arrivee\n");
-        pthread_cond_signal(&plasticStock);
+        pthread_cond_signal(&plasticOrder);
     }
 
     pthread_mutex_unlock(&collect_area_mutex);
@@ -38,12 +38,14 @@ void *commande(void *d){
 
 void *fonc_atelier(void *d){
     homme_flux *hf = d;
-    card* cards = hf->cards;
 
     while(1){
         pthread_mutex_lock(&mutex_atelier);
         pthread_cond_wait(&wait_atelier, &mutex_atelier);
         pthread_mutex_unlock(&mutex_atelier);
+
+        printf("L'homme flux a depose les cartes a l'atelier\n");
+        card* cards = hf->cards;
 
         int i;
         pthread_t order;

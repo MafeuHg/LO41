@@ -13,6 +13,7 @@ typedef struct{
 }homme_flux;
 
 void *fonc_homme_flux(void *f);
+homme_flux *homme_flux_intialize(void);
 
 #endif //HOMME_FLUX_H
 

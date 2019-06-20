@@ -4,7 +4,7 @@
 #include <errno.h>
 #include "../headers/stock.h"
 
-stock *initalize_stock(int nbC, unsigned char type, unsigned long int original){
+stock *initalize_stock(int nbC, unsigned char type, long int original){
     int i;
     stock *s = malloc(sizeof(stock));
 
@@ -23,20 +23,32 @@ BOOL isStockEmpty(stock s){
         return FALSE;
 }
 
-void *fonc_fiberStock(){
+void *fonc_fiberStock(void *s){
+    stock *st = s;
+
     while(1){
-        pthread_cond_wait(&fiberStock, &mutex1);
-        printf("Envoi de nouveaux stocks de fibres\n");
-        usleep(700000);
+        pthread_mutex_lock(&fiberStock);
+        pthread_cond_wait(&waitFiber, &fiberStock);
+        pthread_mutex_unlock(&fiberStock);
+
+        printf("Un nouveau container de fibres est arrive\n");
+        st->currentNbContainer++;
+
         pthread_cond_signal(&wait1);
     }
 }
 
-void *fonc_plasticStock(){
+void *fonc_plasticStock(void *s){
+    stock *st = s;
+
     while(1){
-        pthread_cond_wait(&plasticStock, &mutex2);
-        printf("Envoi de nouveaux stocks de plastique\n");
-        usleep(700000);
+        pthread_mutex_lock(&plasticStock);
+        pthread_cond_wait(&waitPlastic, &plasticStock);
+        pthread_mutex_unlock(&plasticStock);
+
+        printf("Un nouveau container de plastique est arrive\n");
+        st->currentNbContainer++;
+
         pthread_cond_signal(&wait2);
     }
 }
