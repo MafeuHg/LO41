@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/utils.h"
 

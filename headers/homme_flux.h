@@ -4,9 +4,9 @@
 #include "card.h"
 #include "boite_aux_lettres.h"
 #include "container.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+typedef int BOOL;
+#define TRUE 0
+#define FALSE 1
 
 typedef struct{
     card *cards;

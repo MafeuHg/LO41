@@ -2,6 +2,7 @@
 #include "../headers/variables.h"
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/collect_area.h"
+#include "../headers/utils.h"
 
 operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime){
 
@@ -49,7 +50,7 @@ void produire_operateur1(operateur o){
             usleep(3000000);
             printf("L'operateur %s prend un container du stock de fibres\n", o.name);
             o.stockO->currentNbContainer--;
-            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
+            c = container_initialize(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
             add_card(c->mCard);
             o.has_container = TRUE;
         }
@@ -82,7 +83,7 @@ void produire_operateur2(operateur o){
         if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
             usleep(500000);
             printf("L'operateur %s prend un container du stock de plastique\n", o.name);
-            c = initialize_container(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
+            c = container_initialize(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
             add_card(c->mCard);
             o.stockO->currentNbContainer--;
             o.has_container = TRUE;

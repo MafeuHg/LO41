@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <errno.h>
+#include "../headers/utils.h"
 #include "../headers/stock.h"
 #include "../headers/collect_area.h"
 
@@ -15,13 +12,6 @@ stock *initalize_stock(int nbC, unsigned char type, long int original){
     s->nbProducts = original;
 
     return s;
-}
-
-BOOL isStockEmpty(stock s){
-    if(s.currentNbContainer == 0)
-        return TRUE;
-    else
-        return FALSE;
 }
 
 void *fonc_fiberStock(void *s){

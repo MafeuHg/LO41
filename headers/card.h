@@ -2,7 +2,9 @@
  * card.h
  * written by GUICHARD Mériadeg
  *
- * contains the definition of a magnetic card
+ * contains:
+ *          the definition of a magnetic card
+ *          the functions relatives to a magnetic card
  *
  */
 
@@ -26,8 +28,18 @@ typedef struct{
 
 }card;
 
-void card_info(card *c);
-card *create_card(signed short postNumber, signed short workshopNumber, int nbComponent, int refference, int designation, int order);
+/*
+ * function: create_card
+ * description: create and retun a card with the paramaters descripted below:
+ *      -postNumber: the number of the post
+ *      -workshopNumber: the number of the workshop (aka factory aka ateler)
+ *      -nbComponent: the number of components in the container
+ *      -reference: the reference of the raw material -> 3263825 for fiber and 3263827 for plastic
+ *      -designation: the designation of the material
+ *      -order: the order associate to the container
+ *
+ */
+card *create_card(signed short postNumber, signed short workshopNumber, int nbComponent, int reference, int designation, int order);
 
 #endif //CARD_H
 

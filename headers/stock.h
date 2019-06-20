@@ -8,7 +8,6 @@
 #ifndef STOCK_H
 #define STOCK_H
 
-#include "utils.h"
 #include "container.h"
 
 typedef struct{
@@ -21,7 +20,6 @@ typedef struct{
 }stock;
 
 stock *initalize_stock(int nbC, unsigned char type, long int original);
-BOOL isStockEmpty(stock s);
 void *fonc_fiberStock();
 void *fonc_plasticStock();
 

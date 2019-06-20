@@ -9,8 +9,11 @@
 #ifndef operator_H
 #define operator_H
 
-#include "utils.h"
 #include "stock.h"
+typedef int BOOL;
+#define TRUE 0
+#define FALSE 1
+
 
 /* opérateur, se définit par:
  *  -un prénom

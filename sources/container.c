@@ -1,7 +1,7 @@
 #include "../headers/container.h"
 #include "../headers/utils.h"
 
-container *initialize_container(unsigned char type, long int original, signed short p, signed short wn, int nbC, int ref, int des, int o){
+container *container_initialize(unsigned char type, long int original, signed short p, signed short wn, int nbC, int ref, int des, int o){
     container *c = malloc(sizeof(container));
 
     c->type = type;
@@ -10,11 +10,4 @@ container *initialize_container(unsigned char type, long int original, signed sh
     c->mCard = create_card(p, wn, nbC, ref, des, o);
 
     return c;
-}
-
-BOOL isContainerEmpty(container c){
-    if(c.currentNbComponent == 0)
-        return TRUE;
-    else
-        return FALSE;
 }
