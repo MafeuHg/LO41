@@ -5,6 +5,7 @@
 
 homme_flux *homme_flux_intialize(void){
     homme_flux *hf = malloc(sizeof(homme_flux));
+    hf->cards = NULL;
 
     return hf;
 }
@@ -23,7 +24,11 @@ void *fonc_homme_flux(void *hf){
 
         if(boite->size > 0){
 
-            f->cards = malloc((int)boite->size * sizeof(card));
+            printf("fin\n");
+            f->cards = malloc((int)boite->size * sizeof(card *));
+            //f->cards = malloc(100 * sizeof(card *));
+
+            printf("fin\n");
             f->nbCards = boite->size;
 
             for(i = 0; i != f->nbCards; i++)

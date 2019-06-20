@@ -56,9 +56,9 @@ void *fonc_plasticStock(void *s){
 
         printf("La livraison de plastique est arrive\n");
 
-        pthread_mutex_lock(&fiberStock);
-        pthread_cond_wait(&waiting_for_cont, &fiberStock);
-        pthread_mutex_unlock(&fiberStock);
+        pthread_mutex_lock(&plasticStock);
+        pthread_cond_wait(&waiting_for_cont, &plasticStock);
+        pthread_mutex_unlock(&plasticStock);
 
         collect_zone->nbContainer--;
         st->currentNbContainer++;

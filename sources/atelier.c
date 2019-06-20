@@ -37,14 +37,17 @@ void *fonc_atelier(void *d){
     homme_flux *hf = d;
 
     while(1){
+        int i;
         pthread_mutex_lock(&mutex_atelier);
         pthread_cond_wait(&wait_atelier, &mutex_atelier);
         pthread_mutex_unlock(&mutex_atelier);
 
         printf("L'homme flux a depose les cartes a l'atelier\n");
-        card* cards = hf->cards;
+        card* cards = malloc(100 * sizeof(cards));
 
-        int i;
+        for(i = 0; i != hf->nbCards; i++)
+            cards[i] = hf->cards[i];
+
         pthread_t order;
         pthread_attr_t attr;
 
