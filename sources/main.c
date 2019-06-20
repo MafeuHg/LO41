@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     strcpy(operators_name[5], "Edouard"); // crée le costume de la poupée
     strcpy(operators_name[6], "EXPLOSION"); // assemble toutes les pièces pour créer le produit final
 
-    homme_flux *f;
+    //homme_flux *f;
     operateur *operateurs = malloc(NB_OPERATORS * sizeof(operateur));
     for(i = 0; i != NB_OPERATORS; i++){
         operateur *o = initialize_operator(operators_name[i], i + 1, 2000000);
@@ -54,13 +54,13 @@ int main(int argc, char** argv)
         pthread_create(operators+i, NULL, fonc_operator, (void *)(&operateurs[i]));
 
     // Creation du thread homme flux
-    pthread_create(&homme_flux_thread, NULL, fonc_homme_flux, (void *)(f));
+    pthread_create(&homme_flux_thread, NULL, fonc_homme_flux, (void *)(hf));
 
     // Creation du thread zone de collecte
     pthread_create(&collect_area_thread, NULL, fonc_collect_area, (void *)(collect_zone));
 
     // Creation du thread atelier
-    pthread_create(&atelier_thread, NULL, fonc_atelier, (void *)(f));
+    pthread_create(&atelier_thread, NULL, fonc_atelier, (void *)(hf));
 
     // Creation des threads des stocks
     pthread_create(&fiber_stock, NULL, fonc_fiberStock, (void *)(fiber));
