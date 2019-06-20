@@ -2,7 +2,7 @@
 #include "../headers/stock.h"
 #include "../headers/collect_area.h"
 
-stock *initalize_stock(int nbC, unsigned char type, long int original){
+stock *initalize_stock(int nbC, unsigned char type, long int original, collect_area *ca){
     int i;
     stock *s = malloc(sizeof(stock));
 
@@ -10,6 +10,7 @@ stock *initalize_stock(int nbC, unsigned char type, long int original){
     s->nbContainers = nbC;
     s->currentNbContainer = nbC;
     s->nbProducts = original;
+    s->collect_zone = ca;
 
     return s;
 }
@@ -28,7 +29,7 @@ void *fonc_fiberStock(void *s){
         pthread_cond_wait(&waiting_for_cont, &fiberStock);
         pthread_mutex_unlock(&fiberStock);
 
-        collect_zone->nbContainer--;
+        st->collect_zone->nbContainer--;
         st->currentNbContainer++;
         printf("Un container de fibres a ete remplis et remis dans le stock\n");
 
@@ -50,7 +51,7 @@ void *fonc_plasticStock(void *s){
         pthread_cond_wait(&waiting_for_cont, &plasticStock);
         pthread_mutex_unlock(&plasticStock);
 
-        collect_zone->nbContainer--;
+        st->collect_zone->nbContainer--;
         st->currentNbContainer++;
         printf("Un container de plastique a ete remplis et remis dans le stock\n");
 

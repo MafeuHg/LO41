@@ -82,37 +82,34 @@ void initialization()
      * boite: the boite_aux_lettres entity
      *
      */
-    homme_flux *hf = homme_flux_intialize();
+    boite_aux_lettres *boite = initialize_boite_aux_lettres();
+    collect_area *collect_zone = initialize_collect_area();
+    homme_flux *hf = homme_flux_intialize(boite);
     atelier *at = initialize_atelier(hf);
-    stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer);
-    stock *plastic = initalize_stock(nbContainers, 'p', nbProductByContainer);
-    collect_zone = initialize_collect_area();
-    boite = initialize_boite_aux_lettres();
+    stock *fiber = initalize_stock(nbContainers, 'f', nbProductByContainer, collect_zone);
+    stock *plastic = initalize_stock(nbContainers, 'p', nbProductByContainer, collect_zone);
 
 
     /* Operators names initialisation */
     strcpy(operators_name[0], "Jean Michel"); // crée des fils
     strcpy(operators_name[1], "Francky"); // crée du plastique utilisable
     strcpy(operators_name[2], "Jacky"); // crée des yeux en plastique
-    strcpy(operators_name[3], "Djadja"); // crée des boutons de costume
-    strcpy(operators_name[4], "Monocle"); // crée le corps de la poupée
-    strcpy(operators_name[5], "Edouard"); // crée le costume de la poupée
-    strcpy(operators_name[6], "EXPLOSION"); // assemble toutes les pièces pour créer le produit final
+    strcpy(operators_name[3], "Vincent"); // crée des boutons de costume
+    strcpy(operators_name[4], "Dark Vador"); // crée le corps de la poupée
+    strcpy(operators_name[5], "Jacques Pereira"); // crée le costume de la poupée
+    strcpy(operators_name[6], "Lee"); // assemble toutes les pièces pour créer le produit final
 
 
     /* Initialisation of the array of operators */
     operateur *operateurs = malloc(NB_OPERATORS * sizeof(operateur));
     for(i = 0; i != NB_OPERATORS; i++){
-        operateur *o = initialize_operator(operators_name[i], i + 1, 2000000);
+        operateur *o = initialize_operator(operators_name[i], i + 1, 2000000, collect_zone, boite);
         operateurs[i] = *o;
     }
 
     /* Assignation of the stocks required by the operatos */
-    operateurs[0].stockO = fiber;
-    operateurs[1].stockO = plastic;
-    operateurs[6].stockO = fiber;
-    operateurs[6].stock1 = plastic;
-
+    operateurs[0].stock = fiber;
+    operateurs[1].stock = plastic;
 
     /* Call to the synchronization function */
     synchronization(operateurs, hf, collect_zone, fiber, plastic);

@@ -8,7 +8,7 @@ boite_aux_lettres *initialize_boite_aux_lettres(){
     return b;
 }
 
-void add_card(card *c){
+void add_card(boite_aux_lettres *boite, card *c){
 
     if(boite->size == 0){
         boite->box = malloc(1 * sizeof(boite_aux_lettres)); // to begin with an array, is handle in add_card;

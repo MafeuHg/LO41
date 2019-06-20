@@ -35,8 +35,5 @@ collect_area *initialize_collect_area();
  */
 void *fonc_collect_area(void *d);
 
-
-collect_area *collect_zone;
-
 #endif //ZONE_COLLECTE_H
 

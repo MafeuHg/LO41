@@ -3,8 +3,8 @@
  * written by GUICHARD Mériadeg
  *
  * contains:
- *          the definition of a magnetic card
- *          the functions relatives to a magnetic card
+ *      the definition of a magnetic card
+ *      the functions relatives to a magnetic card
  *
  */
 

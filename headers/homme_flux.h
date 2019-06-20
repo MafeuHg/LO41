@@ -20,6 +20,7 @@ typedef struct{
     card *cards;
     int nbCards;
     BOOL is_active;
+    boite_aux_lettres *boite;
 
 }homme_flux;
 
@@ -28,7 +29,7 @@ typedef struct{
  * description: instanciate and return a "homme flux"
  *
  */
-homme_flux *homme_flux_intialize(void);
+homme_flux *homme_flux_intialize(boite_aux_lettres *b);
 /*
  * function: fonc_homme_flux
  * description below:

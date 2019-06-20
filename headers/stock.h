@@ -11,6 +11,7 @@
 #define STOCK_H
 
 #include "container.h"
+#include "collect_area.h"
 
 typedef struct{
 
@@ -18,6 +19,7 @@ typedef struct{
     int nbContainers; // the number of container per stock
     int currentNbContainer; // the number of container  at a time t, decreasing number
     long int nbProducts; // the number of product per container in each stock
+    collect_area *collect_zone; // the zone wherewe store the empty containers
 
 }stock;
 
@@ -27,9 +29,10 @@ typedef struct{
  *      -nbC: the number of containers
  *      -type: the type of the stock ('f' for fibers, 'p' for plastic)
  *      -original: the original number of product per stock;
+ *      -ca: the collect area
  *
  */
-stock *initalize_stock(int nbC, unsigned char type, long int original);
+stock *initalize_stock(int nbC, unsigned char type, long int original, collect_area *ca);
 
 /*
  * function: fonc_fiber_stock

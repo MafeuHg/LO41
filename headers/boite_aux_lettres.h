@@ -32,9 +32,7 @@ boite_aux_lettres *initialize_boite_aux_lettres();
  *
  * this function is called every time an operator take a new container to work with
  */
-void add_card(card *c);
-
-boite_aux_lettres *boite;
+void add_card(boite_aux_lettres *boite, card *c);
 
 #endif //CLASS_H
 

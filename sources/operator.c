@@ -1,10 +1,9 @@
 #include "../headers/operator.h"
 #include "../headers/variables.h"
-#include "../headers/boite_aux_lettres.h"
 #include "../headers/collect_area.h"
 #include "../headers/utils.h"
 
-operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime){
+operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime, collect_area *ca, boite_aux_lettres *b){
 
     operateur *o = malloc(sizeof(operateur));
 
@@ -18,6 +17,8 @@ operateur *initialize_operator(char *name, unsigned short postNumber, unsigned l
     o->postNumber = postNumber;
     o->has_container = FALSE;
     o->productionTime = productionTime;
+    o->collect_zone = ca;
+    o->boite = b;
 
     return o;
 }
@@ -46,15 +47,15 @@ void *fonc_operator(void *o){
 void produire_operateur1(operateur o){
     container *c = NULL;
     while(1){
-        if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
+        if(o.has_container == FALSE && o.stock->currentNbContainer > 0){
             usleep(3000000);
             printf("L'operateur %s prend un container du stock de fibres\n", o.name);
-            o.stockO->currentNbContainer--;
-            c = container_initialize(o.stockO->type, o.stockO->nbProducts, 1, 1, o.stockO->nbProducts, 3263825, 42, 6);
-            add_card(c->mCard);
+            o.stock->currentNbContainer--;
+            c = container_initialize(o.stock->type, o.stock->nbProducts, 1, 1, o.stock->nbProducts, 3263825, 42, 6);
+            add_card(o.boite, c->mCard);
             o.has_container = TRUE;
         }
-        else if(o.has_container == FALSE && o.stockO->currentNbContainer <= 0){
+        else if(o.has_container == FALSE && o.stock->currentNbContainer <= 0){
             printf("Le stock de fibres etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
             pthread_mutex_lock(&mutex1);
             pthread_cond_wait(&wait1, &mutex1);
@@ -70,9 +71,10 @@ void produire_operateur1(operateur o){
                 //printf("L'operateur %s a produit 200 fils, il reste %li dans le container\n", o.name, c->currentNbComponent);
             }
             printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
-            collect_zone->nbContainer++;
+            o.collect_zone->nbContainer++;
             pthread_cond_signal(&waiting_for_cont);
             o.has_container = FALSE;
+            printf("test\n");
         }
     }
 }
@@ -80,15 +82,15 @@ void produire_operateur1(operateur o){
 void produire_operateur2(operateur o){
     container *c = NULL;
     while(1){
-        if(o.has_container == FALSE && o.stockO->currentNbContainer > 0){
+        if(o.has_container == FALSE && o.stock->currentNbContainer > 0){
             usleep(500000);
             printf("L'operateur %s prend un container du stock de plastique\n", o.name);
-            c = container_initialize(o.stockO->type, o.stockO->nbProducts, 2, 1, o.stockO->nbProducts, 3263827, 44, 13);
-            add_card(c->mCard);
-            o.stockO->currentNbContainer--;
+            c = container_initialize(o.stock->type, o.stock->nbProducts, 2, 1, o.stock->nbProducts, 3263827, 44, 13);
+            add_card(o.boite, c->mCard);
+            o.stock->currentNbContainer--;
             o.has_container = TRUE;
         }
-        else if(o.has_container == FALSE && o.stockO->currentNbContainer == 0){
+        else if(o.has_container == FALSE && o.stock->currentNbContainer == 0){
             printf("Le stock de plastique etant vide, l'operateur %s attend de nouveaux containers\n", o.name);
             pthread_mutex_lock(&mutex2);
             pthread_cond_wait(&wait2, &mutex2);
@@ -106,7 +108,7 @@ void produire_operateur2(operateur o){
                 }
             }
             printf("L'operateur %s a fini son container, il va en chercher un autre\n", o.name);
-            collect_zone->nbContainer++;
+            o.collect_zone->nbContainer++;
             pthread_cond_signal(&waiting_for_cont);
             o.has_container = FALSE;
         }
@@ -268,10 +270,6 @@ void produire_operateur7(operateur o){
             pthread_mutex_unlock(&mutex7_1);
         }
     }
-    printf("La commande est finie, circulez !\n");
-    free(collect_zone);
-    free(boite);
-    free(o.stockO);
-    free(o.stock1);
+    printf("La commande est finie.\n");
     exit(EXIT_SUCCESS);
 }

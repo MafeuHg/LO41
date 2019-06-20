@@ -11,6 +11,8 @@
 #define operator_H
 
 #include "stock.h"
+#include "boite_aux_lettres.h"
+#include "collect_area.h"
 #include "BOOL.h"
 
 /* opérateur, se définit par:
@@ -42,8 +44,9 @@ typedef struct Operateur{
     unsigned short postNumber; // the number of the post
     unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
 
-    stock *stockO; // will only be instancied for the two first operators, will be NULL for the others
-    stock *stock1; // an optional stock, placed here at the beginning of the project for possible future ameliorations
+    stock *stock; // will only be instancied for the two first operators, will be NULL for the others
+    collect_area *collect_zone; // the zone where they store empty container, only the first operators will have an instanciate one
+    boite_aux_lettres *boite;
     BOOL has_container;
 
 }operateur;
@@ -53,7 +56,7 @@ typedef struct Operateur{
  * description: initialize and retur an operator
  *
  */
-operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime);
+operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime, collect_area *ca, boite_aux_lettres *b);
 
 /*
  * function: fonc_operator
