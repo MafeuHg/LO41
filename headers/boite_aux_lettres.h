@@ -4,9 +4,6 @@
 #include "card.h"
 #include <pthread.h>
 
-pthread_t boite_mutex;
-pthread_cond_t wait_boite;
-
 typedef struct{
 
     card *box; // will be dynamically allocated at the execution of the program

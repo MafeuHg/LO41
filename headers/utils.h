@@ -8,15 +8,33 @@
 #include <errno.h>
 #include <unistd.h>
 
-/* Concerns operators */
 #define MAX_LENGTH_NAME 127
 #define MAX_LENGTH_PRODUCT_NAME 20
+#define NB_OPERATORS 7
 
-/* Concerns the main program */
+/*
+ * SYNCHRONIZATION ELEMENTS: Description
+ *
+ * this section contains the difintions of the differents mutexes, conditions and threads
+ * that manage the program's synchronization.
+ * They are at a global scope in order to be used by the differents elements of the program
+ *
+ * They are organized as follow:
+ *      1) operators
+ *      2) stocks
+ *      3) factory
+ *      4) homme flux
+ *      5) boite aux lettres
+ *      6) collect area
+ */
 
-#define NB_OPERATORS 7 // the number of operators
-#define NB_MUTEX 8
-
+/*
+ * SYNCHRONIZATION ELEMENTS: Operators
+ *
+ */
+/* operators threads */
+pthread_t operators[NB_OPERATORS];
+/* operators conditions */
 pthread_cond_t wait1;
 pthread_cond_t wait2;
 pthread_cond_t wait3;
@@ -27,15 +45,7 @@ pthread_cond_t wait6_1;
 pthread_cond_t wait6_2;
 pthread_cond_t wait7_1;
 pthread_cond_t wait7_2;
-pthread_cond_t waitFiber;
-pthread_cond_t waitPlastic;
-pthread_cond_t fiberOrder;
-pthread_cond_t plasticOrder;
-
-pthread_t atelier_thread;
-pthread_cond_t wait_atelier;
-pthread_mutex_t mutex_atelier;
-
+/* operators mutexes */
 pthread_mutex_t mutex1;
 pthread_mutex_t mutex2;
 pthread_mutex_t mutex3;
@@ -46,14 +56,70 @@ pthread_mutex_t mutex6_1;
 pthread_mutex_t mutex6_2;
 pthread_mutex_t mutex7_1;
 pthread_mutex_t mutex7_2;
+
+
+/*
+ * SYNCHRONIZATION ELEMENTS: Stocks
+ *
+ */
+/* stocks threads */
+pthread_t fiber_stock;
+pthread_t plastic_stock;
+/* stocks conditions */
+pthread_cond_t waitFiber;
+pthread_cond_t waitPlastic;
+/* stocks mutex */
 pthread_mutex_t fiberStock;
 pthread_mutex_t plasticStock;
 
-pthread_t operators[NB_OPERATORS];
+
+/*
+ * SYNCHRONIZATION ELEMENTS: Factory
+ *
+ */
+/* factory threads */
+pthread_t atelier_thread;
+/* factory conditions */
+pthread_cond_t fiberOrder;
+pthread_cond_t plasticOrder;
+pthread_cond_t wait_atelier;
+/* factory mutex */
+pthread_mutex_t mutex_atelier;
+
+
+/*
+ * SYNCHRONIZATION ELEMENTS: Homme flux
+ *
+ */
+/* Threads used by the differents entities */
+/* homme flux thread */
 pthread_t homme_flux_thread;
+/* homme flux mutex */
 pthread_mutex_t homme_flux_mutex;
-pthread_t fiber_stock;
-pthread_t plastic_stock;
+
+
+/*
+ * SYNCHRONIZATION ELEMENTS: Boite aux lettres
+ *
+ */
+/* boite aux lettres condition */
+pthread_cond_t wait_boite;
+/* boite aux lettres mutex */
+pthread_t boite_mutex;
+
+
+/*
+ * SYNCHRONIZATION ELEMENTS: collect area
+ *
+ */
+/* collect area thread */
+pthread_t collect_area_thread;
+/* collect area condition */
+pthread_cond_t waiting_for_cont;
+pthread_cond_t collect_area_wait;
+/* collect area mutex */
+pthread_mutex_t collect_area_mutex;
+pthread_mutex_t waiting_for_cont_mutex;
 
 #endif //UTILS_H
 

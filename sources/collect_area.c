@@ -1,4 +1,5 @@
 #include "../headers/collect_area.h"
+#include "../headers/utils.h"
 
 collect_area *initialize_collect_area(){
     collect_area *ca = malloc(sizeof(collect_area));

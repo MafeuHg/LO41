@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../headers/boite_aux_lettres.h"
+#include "../headers/utils.h"
 
 boite_aux_lettres *initialize_boite_aux_lettres(){
     boite_aux_lettres *b = malloc(sizeof(boite_aux_lettres));
@@ -21,7 +22,5 @@ void add_card(card *c){
         boite->box[boite->size] = *c;
         boite->size++;
     }
-    printf("Une carte a ete ajoutee\n");
     pthread_cond_signal(&wait_boite);
-    printf("emission du signal\n");
 }

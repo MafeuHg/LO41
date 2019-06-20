@@ -4,12 +4,6 @@
 #include "../headers/container.h"
 #include <pthread.h>
 
-pthread_t collect_area_thread;
-pthread_mutex_t collect_area_mutex;
-pthread_cond_t collect_area_wait;
-
-pthread_mutex_t waiting_for_cont_mutex;
-pthread_cond_t waiting_for_cont;
 
 typedef struct{
 

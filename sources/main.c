@@ -15,7 +15,7 @@
 
 int main(int argc, char** argv)
 {
-    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 10000;
+    int i, nbStocks = 2, nbContainers = 100, nbProductByContainer = 1000;
     boite = initialize_boite_aux_lettres();
     homme_flux *hf = homme_flux_intialize();
     atelier *at = initialize_atelier(hf);

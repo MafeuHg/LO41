@@ -1,7 +1,6 @@
 #include "../headers/homme_flux.h"
 #include "../headers/boite_aux_lettres.h"
 #include "../headers/utils.h"
-#include "../headers/container.h"
 #include <pthread.h>
 
 homme_flux *homme_flux_intialize(void){
@@ -21,10 +20,7 @@ void *fonc_homme_flux(void *hf){
 
         pthread_mutex_lock(&homme_flux_mutex);
         pthread_cond_wait(&wait_boite, &homme_flux_mutex);
-        printf("reception du signal\n");
         pthread_mutex_unlock(&homme_flux_mutex);
-
-        printf("La boite contient : %d\n", boite->size);
 
         if(boite->size > 0 && f->is_active == FALSE){
 
@@ -32,7 +28,6 @@ void *fonc_homme_flux(void *hf){
             int size = boite->size;
             f->cards = malloc(size * sizeof(card *));
 
-            printf("fin\n");
             f->nbCards = boite->size;
 
             for(i = 0; i != f->nbCards; i++)
