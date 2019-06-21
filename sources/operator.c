@@ -126,7 +126,7 @@ void produire_operateur2(operateur o){
                     pthread_cond_signal(&wait4);
                 }
             }
-            //printf("L'operateur %s a fini son container\n", o.name);
+            printf("L'operateur %s a fini son container\n", o.name);
             o.collect_zone->nbContainer++;
             pthread_cond_signal(&waiting_for_cont);
             o.has_container = FALSE;
@@ -295,22 +295,22 @@ void display(operateur o){
             printf("Operateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
             break;
         case 2:
-            printf("Operateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("Operateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_2, o.productName);
             break;
         case 3:
-            printf("\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("\t\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_3, o.productName);
             break;
         case 4:
-            printf("\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("\t\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_4, o.productName);
             break;
         case 5:
-            printf("\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("\t\t\t\t\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_5, o.productName);
             break;
         case 6:
-            printf("\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("\t\t\t\t\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_6, o.productName);
             break;
         case 7:
-            printf("\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_1, o.productName);
+            printf("\t\t\t\t\t\t\t\t\t\t\tOperateur %s: %i %s\n", o.name, QUANTITY_OPERATOR_7, o.productName);
             break;
     }
 }

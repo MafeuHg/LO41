@@ -23,7 +23,7 @@ void *fonc_fiberStock(void *s){
         pthread_cond_wait(&waitFiber, &fiberStock);
         pthread_mutex_unlock(&fiberStock);
 
-        //printf("La livraison de fibres est arrive\n");
+        printf("\n*** La livraison de fibres est arrive ***\n");
 
         pthread_mutex_lock(&fiberStock);
         pthread_cond_wait(&waiting_for_cont, &fiberStock);
@@ -31,7 +31,7 @@ void *fonc_fiberStock(void *s){
 
         st->collect_zone->nbContainer--;
         st->currentNbContainer++;
-        //printf("Un container de fibres a ete remplis et remis dans le stock\n");
+        printf("\n*** Un container de fibres a ete remplis et remis dans le stock ***\n");
 
         pthread_cond_signal(&wait1);
     }

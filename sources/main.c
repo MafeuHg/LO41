@@ -50,6 +50,7 @@ int main(int argc, char *argv[]){
 
     printf("Bonjour, combien voulez vous produire de %s: ", final_product_name);
     scanf("%d", & nb_product_final);
+    printf("\e[1;1H\e[2J");
 
     initialization(nb_product_final, final_product_name);
     return EXIT_SUCCESS;
@@ -106,7 +107,7 @@ void initialization(int nb_product_final, char *final_product_name)
 
     strcpy(product_names[0], "Fils");
     strcpy(product_names[1], "Plastique");
-    strcpy(product_names[2], "Yeux");
+    strcpy(product_names[2], "Oeil");
     strcpy(product_names[3], "Boutons");
     strcpy(product_names[4], "Corps de poupee");
     strcpy(product_names[5], "Costume de poupee");
