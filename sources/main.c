@@ -71,7 +71,7 @@ void initialization(int nb_product_final, char *final_product_name)
      */
     int i;
     int nbStocks = 2;
-    int nbContainers = 100;
+    int nbContainers = 1;
     int nbProductByContainer = 2000;
     char operators_name[NB_OPERATORS][MAX_LENGTH_NAME];
     char product_names[NB_OPERATORS][MAX_LENGTH_PRODUCT_NAME];
@@ -100,10 +100,10 @@ void initialization(int nb_product_final, char *final_product_name)
     strcpy(operators_name[0], "Jean Michel"); // crée des fils
     strcpy(operators_name[1], "Francky"); // crée du plastique utilisable
     strcpy(operators_name[2], "Jacky"); // crée des yeux en plastique
-    strcpy(operators_name[3], "Vincent"); // crée des boutons de costume
-    strcpy(operators_name[4], "Dark Vador"); // crée le corps de la poupée
-    strcpy(operators_name[5], "Jacques Pereira"); // crée le costume de la poupée
-    strcpy(operators_name[6], "Lee"); // assemble toutes les pièces pour créer le produit final
+    strcpy(operators_name[3], "Xenophon"); // crée des boutons de costume
+    strcpy(operators_name[4], "Snake Plissken"); // crée le corps de la poupée
+    strcpy(operators_name[5], "Dark Vador"); // crée le costume de la poupée
+    strcpy(operators_name[6], "Jacques Pereira"); // assemble toutes les pièces pour créer le produit final
 
     strcpy(product_names[0], "Fils");
     strcpy(product_names[1], "Plastique");
