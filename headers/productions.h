@@ -1,5 +1,13 @@
-#ifndef VARIABLES_H
-#define VARIABLES_H
+/*
+ * productions.h
+ * written by GUICHARD Mériadeg
+ *
+ * contains:
+ *      the definition of the operators productions
+ */
+
+#ifndef PRODUCTIONS_H
+#define PRODUCTIONS_H
 
 long int production_operator_1 = 0;
 long int production_operator_2 = 0;
@@ -9,6 +17,4 @@ long int production_operator_5 = 0;
 long int production_operator_6 = 0;
 long int production_operator_7 = 0;
 
-#endif //VARIABLES_H
-
-
+#endif //PRODUCTIONS_H

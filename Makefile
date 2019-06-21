@@ -1,6 +1,6 @@
 #all:  test
 
-main: main.o container.o operator.o stock.o boite_aux_lettres.o card.o homme_flux.o atelier.o collect_area.o
+main: main.o container.o operator.o stock.o boite_aux_lettres.o card.o homme_flux.o atelier.o collect_area.o displayer.o
 	gcc ./objects/*.o -o Main -pthread
 
 main.o: ./sources/main.c
@@ -29,6 +29,9 @@ atelier.o: ./sources/atelier.c
 
 collect_area.o: ./sources/collect_area.c
 	gcc -c ./sources/collect_area.c -o ./objects/collect_area.o
+
+displayer.o: ./sources/displayer.c
+	gcc -c ./sources/displayer.c -o ./objects/displayer.o
 
 clean:
 	rm ./objects/*.o

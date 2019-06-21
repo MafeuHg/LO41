@@ -43,11 +43,13 @@ typedef struct Operateur{
 
     unsigned short postNumber; // the number of the post
     unsigned long int productionTime; // the time an operator uses to create a product, in msec (that's why we use the unsigned long type)
+    signed int nb_final_product;
 
     stock *stock; // will only be instancied for the two first operators, will be NULL for the others
     collect_area *collect_zone; // the zone where they store empty container, only the first operators will have an instanciate one
-    boite_aux_lettres *boite;
-    BOOL has_container;
+    boite_aux_lettres *boite; // the letter box (aka boite aux lettres)
+    BOOL has_container; // does the operator have a container at the time t ?
+
 
 }operateur;
 
@@ -56,7 +58,7 @@ typedef struct Operateur{
  * description: initialize and retur an operator
  *
  */
-operateur *initialize_operator(char *name, unsigned short postNumber, unsigned long productionTime, collect_area *ca, boite_aux_lettres *b);
+operateur *initialize_operator(char *name, char *product_name, unsigned short postNumber, unsigned long productionTime, collect_area *ca, boite_aux_lettres *b);
 
 /*
  * function: fonc_operator
