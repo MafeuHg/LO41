@@ -10,15 +10,15 @@
 
 #define MAX_LENGTH_NAME 127
 #define MAX_LENGTH_PRODUCT_NAME 50
-#define NB_OPERATORS 7
+#define NB_OPERATORS 8
 #define FINAL_PRODUCT_NAME "Poupees geantes a l'effigie de Jacques Chirac"
 
 /*
  * Here is the definition of each quantity required by an operator to produce the quantity defined below
  *
  */
-#define OPERATOR_1_NB_PRODUCT_REQUIRED 400
-#define OPERATOR_2_NB_PRODUCT_REQUIRED 400
+#define OPERATOR_1_NB_PRODUCT_REQUIRED 250
+#define OPERATOR_2_NB_PRODUCT_REQUIRED 170
 #define OPERATOR_3_NB_PRODUCT_REQUIRED 100
 #define OPERATOR_4_NB_PRODUCT_REQUIRED 100
 #define OPERATOR_5_NB_PRODUCT_1_REQUIRED 300
@@ -32,8 +32,8 @@
  * Here is the definition of each quantity of a product created by an operator
  *
  */
-#define QUANTITY_OPERATOR_1 200
-#define QUANTITY_OPERATOR_2 200
+#define QUANTITY_OPERATOR_1 400
+#define QUANTITY_OPERATOR_2 300
 #define QUANTITY_OPERATOR_3 1
 #define QUANTITY_OPERATOR_4 1
 #define QUANTITY_OPERATOR_5 1

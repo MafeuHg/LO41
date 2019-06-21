@@ -1,7 +1,6 @@
 #include "./../headers/utils.h"
 #include "./../headers/utils.h"
 #include "./../headers/operator.h"
-#include "./../headers/displayer.h"
 
 displayer *initialize_displayer(char **list){
     int i;
@@ -28,7 +27,7 @@ displayer *initialize_displayer(char **list){
     return disp;
 }
 
-void *display(void *d){
+void *displayyy(void *d){
 
     displayer *disp = d;
     while(1){

@@ -2,6 +2,7 @@
 #include "../headers/stock.h"
 #include "../headers/utils.h"
 #include "../headers/collect_area.h"
+#include "../headers/productions.h"
 
 atelier *initialize_atelier(homme_flux *hf){
     atelier *a = malloc(sizeof(atelier));
@@ -22,7 +23,7 @@ void *fonc_atelier(void *d){
         pthread_cond_wait(&wait_atelier, &mutex_atelier);
         pthread_mutex_unlock(&mutex_atelier);
 
-        printf("L'homme flux a depose les cartes a l'atelier\n");
+        //printf("L'homme flux a depose les cartes a l'atelier\n");
         card* cards = malloc(100 * sizeof(cards));
 
         for(i = 0; i != hf->nbCards; i++)
@@ -53,11 +54,11 @@ void *commande(void *d){
     usleep(2000000);
 
     if(c->reference == 3263825){
-        printf("La livraison de fibres est en cours\n");
+        //printf("La livraison de fibres est en cours\n");
         pthread_cond_signal(&waitFiber);
     }
     else if(c->reference == 3263827){
-        printf("La livraison de plastique est en cours\n");
+        //printf("La livraison de plastique est en cours\n");
         pthread_cond_signal(&waitPlastic);
     }
 

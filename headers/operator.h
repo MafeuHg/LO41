@@ -13,6 +13,7 @@
 #include "stock.h"
 #include "boite_aux_lettres.h"
 #include "collect_area.h"
+#include "utils.h"
 #include "BOOL.h"
 
 /* opérateur, se définit par:
@@ -79,5 +80,12 @@ void produire_operateur4(operateur o);
 void produire_operateur5(operateur o);
 void produire_operateur6(operateur o);
 void produire_operateur7(operateur o);
+
+/*
+ * function: display
+ * description: displays the production of an operator
+ *
+ */
+void display(operateur o);
 
 #endif //operator_H

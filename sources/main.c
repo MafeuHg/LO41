@@ -17,7 +17,6 @@
 #include "../headers/atelier.h"
 #include "../headers/homme_flux.h"
 #include "../headers/collect_area.h"
-#include "../headers/displayer.h"
 
 
 /*
@@ -42,23 +41,7 @@ void initialization(int nb_product_final, char *final_product_name);
  *      3) Association between operators 1, 2 and the stocks of fiber and plastic
  *
  */
-void synchronization(operateur *operateurs, homme_flux *hf, collect_area *collect_zone, stock *fiber, stock *plastic, displayer *disp);
-
-/*
- * function: list_product_names
- * description:
- *      handles the creation of the list of product names
- *
- */
-char **list_product_names();
-
-/*
- * function: free_list_product_names
- * description:
- *      handles the liberation of the memory
- *
- */
-void free_list_product_names(char **product_names);
+void synchronization(operateur *operateurs, homme_flux *hf, collect_area *collect_zone, stock *fiber, stock *plastic);
 
 int main(int argc, char *argv[]){
 
@@ -88,9 +71,9 @@ void initialization(int nb_product_final, char *final_product_name)
     int i;
     int nbStocks = 2;
     int nbContainers = 100;
-    int nbProductByContainer = 1000;
+    int nbProductByContainer = 2000;
     char operators_name[NB_OPERATORS][MAX_LENGTH_NAME];
-    char **product_names = list_product_names();
+    char product_names[NB_OPERATORS][MAX_LENGTH_PRODUCT_NAME];
 
 
     /*
@@ -129,8 +112,6 @@ void initialization(int nb_product_final, char *final_product_name)
     strcpy(product_names[5], "Costume de poupee");
     strcpy(product_names[6], final_product_name);
 
-    displayer *disp = initialize_displayer(product_names);
-
 
     /* Initialisation of the array of operators */
     operateur *operateurs = malloc(NB_OPERATORS * sizeof(operateur));
@@ -138,7 +119,6 @@ void initialization(int nb_product_final, char *final_product_name)
         operateur *o = initialize_operator(operators_name[i], product_names[i], i + 1, 2000000, collect_zone, boite);
         operateurs[i] = *o;
     }
-    free_list_product_names(product_names);
 
     /* Assignation of the stocks required by the operatos */
     operateurs[0].stock = fiber;
@@ -146,11 +126,11 @@ void initialization(int nb_product_final, char *final_product_name)
     operateurs[6].nb_final_product = nb_product_final;
 
     /* Call to the synchronization function */
-    synchronization(operateurs, hf, collect_zone, fiber, plastic, disp);
+    synchronization(operateurs, hf, collect_zone, fiber, plastic);
 }
 
 
-void synchronization(operateur *operateurs, homme_flux *hf, collect_area *collect_zone, stock *fiber, stock *plastic, displayer *disp){
+void synchronization(operateur *operateurs, homme_flux *hf, collect_area *collect_zone, stock *fiber, stock *plastic){
     int i;
 
     /* Operators thread creation */
@@ -189,36 +169,5 @@ void synchronization(operateur *operateurs, homme_flux *hf, collect_area *collec
 
     for(i = 0; i != NB_OPERATORS; i++)
         pthread_join(operators[i], NULL);
-
-}
-
-char **list_product_names(){
-    int i;
-    char **product_names = malloc(NB_OPERATORS * MAX_LENGTH_PRODUCT_NAME * sizeof(char));
-    if(product_names == NULL){
-        perror("Erreur d'allocation de premier rang de product_names");
-        exit(EXIT_FAILURE);
-    }
-    for(i = 0; i != NB_OPERATORS; i++){
-        product_names[i] = malloc(MAX_LENGTH_PRODUCT_NAME * sizeof(char));
-        if(product_names[i] == NULL){
-            perror("Erreur d'allocation de deuxieme rang de product_names");
-            exit(EXIT_FAILURE);
-        }
-    }
-
-    return product_names;
-}
-
-void free_list_product_names(char **product_names){
-    int i;
-    for(i = 0; i != NB_OPERATORS; i++){
-        free(product_names[i]);
-        if(product_names[i] == NULL)
-            perror("mauvaise liberation");
-    }
-    free(product_names);
-    if(product_names == NULL)
-        perror("mauvaise liberation");
 
 }

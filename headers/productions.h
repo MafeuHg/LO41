@@ -9,12 +9,12 @@
 #ifndef PRODUCTIONS_H
 #define PRODUCTIONS_H
 
-long int production_operator_1 = 0;
-long int production_operator_2 = 0;
-long int production_operator_3 = 0;
-long int production_operator_4 = 0;
-long int production_operator_5 = 0;
-long int production_operator_6 = 0;
-long int production_operator_7 = 0;
+static long int production_operator_1 = 0;
+static long int production_operator_2 = 0;
+static long int production_operator_3 = 0;
+static long int production_operator_4 = 0;
+static long int production_operator_5 = 0;
+static long int production_operator_6 = 0;
+static long int production_operator_7 = 0;
 
 #endif //PRODUCTIONS_H
