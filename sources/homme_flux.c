@@ -35,11 +35,11 @@ void *fonc_homme_flux(void *hf){
             free(f->boite->box);
             f->boite->size = 0;
 
-            printf("\n*** L'homme flux a pris les cartes de la boite aux lettres ***\n");
+            printf("\n*** L'homme flux a pris les cartes de la boite aux lettres ***\n\n");
             pthread_cond_signal(&wait_atelier);
         }
         else{
-            printf("\n*** L'homme flux constate que la boite aux lettres est vide ***\n");
+            printf("\n*** L'homme flux constate que la boite aux lettres est vide ***\n\n");
         }
     }
 }
